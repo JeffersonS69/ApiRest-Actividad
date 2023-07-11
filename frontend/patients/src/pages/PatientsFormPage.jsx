@@ -164,18 +164,18 @@ export function PatientsFormPage() {
                 Genéro
               </label>
               <div className="relative">
-                <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" {...register("gender", { required: true })}>
                   <option
                     name="gender"
                     placeholder="gender"
-                    {...register("gender", { required: true })}
+                    value={"Masculino"}
                   >
                     Masculino
                   </option>
                   <option
                     name="gender"
                     placeholder="gender"
-                    {...register("gender", { required: true })}
+                    value={"Femenino"}
                   >
                     Femenino
                   </option>
