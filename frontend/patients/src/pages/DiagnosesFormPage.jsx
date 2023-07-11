@@ -23,7 +23,6 @@ export default function DiagnosesFormPage() {
     loadPatients();
   }, []);
 
-  console.log(patients)
 
   const onSubmit = handleSubmit(async(data) => {
     const patientdagnos = {
@@ -32,7 +31,7 @@ export default function DiagnosesFormPage() {
       oxygen_level: data.oxygen_level,
       patient: data.patient
     }
-    console.log(patientdagnos)
+
     try {
       await createDiagnoses(patientdagnos);
       toast.success("Se ha creado los datos correctamente!", {

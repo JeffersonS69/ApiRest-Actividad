@@ -6,6 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -14,9 +15,11 @@ import {
   updatePatients,
   getPatientById,
   getAllDiagnoses,
+  deleteDiagnoses,
 } from "../api/patients.api";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { IconButton } from "@mui/material";
 
 export function PatientsFormPage() {
   const {
@@ -81,6 +84,23 @@ export function PatientsFormPage() {
     navigate("/patients");
   });
 
+  async function onDelete(id) {
+    try{
+      await deleteDiagnoses(id)
+      toast.success("Los datos han sido eliminados!😁", {
+        position: "bottom-left",
+        reverseOrder: true,
+      }); 
+      navigate("/patients");
+    }catch(err){
+      toast.error("Hubo un error al eliminar los datos😥", {
+        position: "bottom-left",
+        reverseOrder: true,
+      });
+      console.log(err);
+    }
+  }
+
   useEffect(() => {
     async function loadPatiet() {
       if (params.id) {
@@ -95,7 +115,6 @@ export function PatientsFormPage() {
     }
     loadPatiet();
   }, []);
-
 
   return (
     <div>
@@ -164,7 +183,10 @@ export function PatientsFormPage() {
                 Genéro
               </label>
               <div className="relative">
-                <select className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" {...register("gender", { required: true })}>
+                <select
+                  className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  {...register("gender", { required: true })}
+                >
                   <option
                     name="gender"
                     placeholder="gender"
@@ -172,11 +194,7 @@ export function PatientsFormPage() {
                   >
                     Masculino
                   </option>
-                  <option
-                    name="gender"
-                    placeholder="gender"
-                    value={"Femenino"}
-                  >
+                  <option name="gender" placeholder="gender" value={"Femenino"}>
                     Femenino
                   </option>
                 </select>
@@ -275,6 +293,7 @@ export function PatientsFormPage() {
                 <TableCell align="right">Nivel de Grasa</TableCell>
                 <TableCell align="right">Nivel de Oxígeno</TableCell>
                 <TableCell align="right">Probabilidad a enfermar</TableCell>
+                <TableCell align="right">Opciones</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -282,7 +301,7 @@ export function PatientsFormPage() {
                 (row) =>
                   row.patient == params.id && (
                     <TableRow
-                      key={row.name}
+                      key={row.id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
@@ -292,6 +311,11 @@ export function PatientsFormPage() {
                       <TableCell align="right">{row.fat_level}</TableCell>
                       <TableCell align="right">{row.oxygen_level}</TableCell>
                       <TableCell align="right">{row.risk_level}</TableCell>
+                      <TableCell align="right">
+                      <IconButton aria-label="delete" onClick={() => onDelete(row.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                      </TableCell>
                     </TableRow>
                   )
               )}

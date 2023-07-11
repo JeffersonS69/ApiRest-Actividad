@@ -26,6 +26,6 @@ export const getDiagnoses = () => apiRestDiagnoses.get(`/${id}/`).catch((err)=> 
 
 export const createDiagnoses = (diagnose) => apiRestDiagnoses.post('/', diagnose).catch((err)=> {axios.AxiosError(err)})
 
-export const deleteDiagnoses = () => apiRestDiagnoses.delete(`/${id}/`).catch((err)=> {axios.AxiosError(err)})
+export const deleteDiagnoses = (id) => apiRestDiagnoses.delete(`/${id}/`).catch((err)=> {axios.AxiosError(err)})
 
-export const updateDiagnoses = () => apiRestDiagnoses.put(`/${id}/`, patient).catch((err)=> {axios.AxiosError(err)})
+export const updateDiagnoses = (id,diagnose) => apiRestDiagnoses.put(`/${id}/`, patient).catch((err)=> {axios.AxiosError(err)})
