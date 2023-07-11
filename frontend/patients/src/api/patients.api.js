@@ -24,7 +24,7 @@ export const getAllDiagnoses = () => apiRestDiagnoses.get('/').catch((err)=> {ax
 
 export const getDiagnoses = () => apiRestDiagnoses.get(`/${id}/`).catch((err)=> {axios.AxiosError(err)})
 
-export const createDiagnoses = () => apiRestDiagnoses.post(`/${id}/`).catch((err)=> {axios.AxiosError(err)})
+export const createDiagnoses = (diagnose) => apiRestDiagnoses.post('/', diagnose).catch((err)=> {axios.AxiosError(err)})
 
 export const deleteDiagnoses = () => apiRestDiagnoses.delete(`/${id}/`).catch((err)=> {axios.AxiosError(err)})
 

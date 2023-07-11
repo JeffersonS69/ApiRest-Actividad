@@ -65,7 +65,7 @@ export function PatientsFormPage() {
     } else {
       try {
         await createPatients(data);
-        toast.success("Se ha creado los datos correctamente!👌", {
+        toast.success("Se ha creado los datos correctamente!", {
           position: "bottom-left",
           reverseOrder: true,
         });
